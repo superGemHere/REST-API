@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
+
 
 const corsOptions = require('./corsPolicy');
+const {CONNECTION__DB, CLIENT__PORT} =  require('./constants')
 
 const routes = require('./routes');
 
@@ -16,5 +19,9 @@ app.get('/', (req, res) => {
 });
 
 app.use(routes);
+mongoose.set('strictQuery', true);
+mongoose.connect(CONNECTION__DB);
 
-app.listen(3030, () => console.log('Server is listening on port: 3030...'));
+
+
+app.listen(CLIENT__PORT, () => console.log('Server is listening on port: 3030...'));
